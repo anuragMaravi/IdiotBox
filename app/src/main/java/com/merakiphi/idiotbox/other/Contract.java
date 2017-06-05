@@ -72,6 +72,9 @@ public class Contract {
     public final static String REGION = "&region=";
     //Language Query
     public final static String LANGUAGE = "&language=";
+    //Adult Content
+    public final static String ADULT = "&include_adult=";
+
 
 
     //Omdb Base Url -- append imdb id

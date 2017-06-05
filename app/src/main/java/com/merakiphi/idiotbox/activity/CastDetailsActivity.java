@@ -1,8 +1,10 @@
 package com.merakiphi.idiotbox.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +31,6 @@ import com.merakiphi.idiotbox.adapter.CastingTvShowsAdapter;
 import com.merakiphi.idiotbox.model.Cast;
 import com.merakiphi.idiotbox.model.Movie;
 import com.merakiphi.idiotbox.other.CheckInternet;
-import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -48,6 +49,8 @@ import static com.merakiphi.idiotbox.other.Contract.API_KEY;
 import static com.merakiphi.idiotbox.other.Contract.API_URL;
 import static com.merakiphi.idiotbox.other.Contract.APPEND;
 import static com.merakiphi.idiotbox.other.Contract.IMAGES;
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
+import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.SEPARATOR;
 
 /**
@@ -98,6 +101,11 @@ public class CastDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
+
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
             setContentView(R.layout.activity_cast_details);
             TAG = getClass().getSimpleName();
@@ -142,6 +150,10 @@ public class CastDetailsActivity extends AppCompatActivity {
              */
             //Cast Details Request
             castDetailsRequest = API_URL + API_CASTING + "/" + castId + "?api_key=" + API_KEY +
+                    //Language parameter
+                    LANGUAGE + language +
+                    //Region parameter
+                    REGION + region +
                     APPEND + IMAGES + SEPARATOR + "external_ids" + SEPARATOR + "movie_credits" + SEPARATOR + "tv_credits";
             Log.i(TAG, "CastURL: " + castDetailsRequest);
             //request movie details
@@ -282,7 +294,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                                 for (int i = 0; i < imagesArray.length(); i++) {
                                     JSONObject finalObject = imagesArray.getJSONObject(i);
                                     Movie movieModel = new Movie();
-                                    movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("file_path"));
+                                    movieModel.setCastingProfilePath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("file_path"));
                                     castingList.add(movieModel);
                                 }
                                 castingLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -301,7 +313,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                                     cast.setCastMovieCharacter(finalObject.getString("character"));
                                     cast.setCastMovieTitle(finalObject.getString("original_title"));
                                     cast.setCastMovieId(finalObject.getString("id"));
-                                    cast.setCastMoviePosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+                                    cast.setCastMoviePosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                     castingListMovies.add(cast);
                                 }
                                 layoutManagerCastingMovies = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -321,7 +333,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                                     cast.setCastTvShowCharacter(finalObject.getString("character"));
                                     cast.setCastTvShowTitle(finalObject.getString("original_name"));
                                     cast.setCastTvShowId(finalObject.getString("id"));
-                                    cast.setCastTvShowPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+                                    cast.setCastTvShowPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                     castingListTvShows.add(cast);
                                 }
                                 layoutManagerCastingTvShows = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);

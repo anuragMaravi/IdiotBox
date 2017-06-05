@@ -137,7 +137,7 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
 
             searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-            searchView.setQueryHint("Search movies and tv shows...");
+            searchView.setQueryHint("Search movies and tv shows");
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(true);
             searchView.setOnQueryTextListener(this);
@@ -178,7 +178,7 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
     public void sendRequest(String query){
         query = query.replace(" ", "+");
         final List<SearchResults> searchResultsList= new ArrayList<>();
-        String urlSearch =  "https://api.themoviedb.org/3/search/multi?api_key="+ API_KEY + "&language=en-US&page=1&include_adult=false&query=" + query;
+        String urlSearch =  "https://api.themoviedb.org/3/search/multi?api_key="+ API_KEY + "&query=" + query;
         StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, urlSearch,
                 new Response.Listener<String>() {
                     @Override

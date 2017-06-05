@@ -25,6 +25,12 @@
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
         <item name="actionBarStyle">@style/action_bar_theme</item>
     </style>
+    <style name="Splash" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/title_background</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <item name="actionBarStyle">@style/action_bar_theme</item>
+    </style>
 
     <style name="action_bar_theme">
         <item name="android:background">#b3000000</item>

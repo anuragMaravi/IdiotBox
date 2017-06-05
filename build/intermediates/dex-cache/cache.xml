@@ -2,22 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/anuragmaravi/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.10.2/33ee82e324f4b1e40167f3dc5e01234a1c5cab61/jsoup-1.10.2.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="375dee72e4df97bbd6979456cda8113c98107674">
-        <dex dex="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_516142f599c2e2c5f36f392af5c0965c6243aea8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1f4af330064489c50d2730aa908ac3f2d689447c/classes.dex" />
+        sha1="33ee82e324f4b1e40167f3dc5e01234a1c5cab61">
+        <dex dex="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/pre-dexed/debug/jsoup-1.10.2_8cbfe573ae97e3d6055e8a77ce76ed947bb7f967.jar" />
     </item>
 
 </items>
