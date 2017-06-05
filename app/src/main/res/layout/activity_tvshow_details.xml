@@ -16,7 +16,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -138,14 +138,15 @@
                             android:id="@+id/textViewVoteAverage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#FFC107"
+                            android:textColor="#00E676"
+                            android:text="7.8"
                             android:textSize="20sp"
                             />
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:scaleType="fitStart"
-                            android:src="@drawable/imdb_logo"/>
+                            android:src="@drawable/tmdb_sq"/>
 
                 </LinearLayout>
             </LinearLayout>

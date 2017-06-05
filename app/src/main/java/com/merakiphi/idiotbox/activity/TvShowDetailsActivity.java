@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,28 +29,33 @@ import com.merakiphi.idiotbox.model.Movie;
 import com.merakiphi.idiotbox.model.TvShow;
 import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
+import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
-import static com.merakiphi.idiotbox.other.Contract.API_KEY;
-import static com.merakiphi.idiotbox.other.Contract.API_TV;
 import static com.merakiphi.idiotbox.other.Contract.API_URL;
-import static com.merakiphi.idiotbox.other.Contract.OMDB_BASE_URL;
+import static com.merakiphi.idiotbox.other.Contract.APPEND;
+import static com.merakiphi.idiotbox.other.Contract.CREDITS;
+import static com.merakiphi.idiotbox.other.Contract.SEPARATOR;
+import static com.merakiphi.idiotbox.other.Contract.SIMILAR;
 
 /**
  * Created by anuragmaravi on 01/02/17.
  */
 
 public class TvShowDetailsActivity extends AppCompatActivity {
-    String TAG, tvShowId, tvShowDetailsRequest, tvShowExternalIdsRequest, tvShowCastingRequest;
+    String TAG, tvShowId, tvShowDetailsRequest;
 
     private TextView textViewDirector,
             textViewTitle,
@@ -135,13 +141,13 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         /**
          * Tv Show Details
          */
-        tvShowDetailsRequest = API_URL + Contract.API_TV + "/" + tvShowId + "?api_key=" + Contract.API_KEY;
-        StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
+        tvShowDetailsRequest = API_URL + Contract.API_TV + "/" + tvShowId + "?api_key=" + Contract.API_KEY + APPEND + CREDITS + SEPARATOR + SIMILAR;
+            Log.i(TAG, "onCreate: " + tvShowDetailsRequest);
+            StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow Details): " + response);
-                        Log.i(TAG, "URL (TvShow Details): " + tvShowDetailsRequest);
                         try {
                             parseAndDisplayData(response);
                         } catch (JSONException e) {
@@ -158,140 +164,6 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTvShowDetails);
 
-        /**
-         * Tv Show Casting
-         */
-        //RecyclerView Tv Show Casting
-        layoutManagerTvShowCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewTvShowCasting = (RecyclerView) findViewById(R.id.recyclerViewTvShowCasting);
-        recyclerViewTvShowCasting.setLayoutManager(layoutManagerTvShowCasting);
-        recyclerViewTvShowCasting.setItemAnimator(new DefaultItemAnimator());
-        tvShowCastingRequest = API_URL + Contract.API_TV + "/" + tvShowId + "/credits?api_key=" + Contract.API_KEY;
-        StringRequest stringRequestTvShowCasting = new StringRequest(Request.Method.GET, tvShowCastingRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(TvShow Casting): " + response);
-
-                        try {
-                            JSONObject parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("cast");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                TvShow tvShow = new TvShow();
-                                tvShow.setTvShowCastCharacter(finalObject.getString("character"));
-                                tvShow.setTvShowCastId(finalObject.getString("id"));
-                                tvShow.setTvShowCastName(finalObject.getString("name"));
-                                tvShow.setTvShowCastProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
-                                tvShowCastingList.add(tvShow);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        adapterTvShowCasting = new TvShowCastingAdapter(getApplicationContext(), tvShowCastingList);
-                        recyclerViewTvShowCasting.setAdapter(adapterTvShowCasting);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTvShowCasting);
-
-        /**
-         * Tv External Ids
-         */
-        tvShowExternalIdsRequest = API_URL + Contract.API_TV + "/" + tvShowId + "/external_ids?api_key=" + Contract.API_KEY;
-        StringRequest stringRequestTvShowExternalIds = new StringRequest(Request.Method.GET, tvShowExternalIdsRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(TvShow External Ids): " + response);
-                        try {
-                            final JSONObject parentObject= new JSONObject(response);
-                            //Send Request to imdb database using imdb Id
-                            StringRequest stringRequestImdb = new StringRequest(Request.Method.GET, OMDB_BASE_URL + parentObject.getString("imdb_id"),
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.i(TAG, "onResponse(IMDb): " + response);
-                                            try {
-                                                Log.i(TAG, "URL (IMDb): " + OMDB_BASE_URL + parentObject.getString("imdb_id"));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                parseAndDisplayDataImdb(response);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            // Add the request to the RequestQueue.
-                            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestImdb);                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTvShowExternalIds);
-
-        /**
-         * Similar TvShow
-         */
-        //RecyclerView Similar TvShow
-        similarTvShowLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewSimilar = (RecyclerView) findViewById(R.id.recyclerViewSimilar);
-        recyclerViewSimilar.setLayoutManager(similarTvShowLayoutManager);
-        recyclerViewSimilar.setItemAnimator(new DefaultItemAnimator());
-        //Request Similar movies
-        String similarTvShowRequest = API_URL + API_TV + "/" + tvShowId + "/similar?api_key=" + API_KEY;
-        StringRequest stringRequestSimilar = new StringRequest(Request.Method.GET, similarTvShowRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(Similar): " + response);
-                        try {
-                            JSONObject parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("results");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                Movie movieModel = new Movie();
-                                movieModel.setSimilarId(finalObject.getString("id"));
-                                movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
-                                similarTvShowList.add(movieModel);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        adapterSimilarTvShow = new SimilarTvShowAdapter(getApplicationContext(), similarTvShowList);
-                        recyclerViewSimilar.setAdapter(adapterSimilarTvShow);
-                        container.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestSimilar);
     } else {
         setNoInternetView();
     }
@@ -326,7 +198,22 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_name"));
         textViewMovieTagline.setText(parentObject.getString("status"));
+
+        textViewMovieOrTvShow.setText("Tv Show");
+        textViewReleaseDateRuntime.setText(("• Type: " + parentObject.getString("type")));
+        textViewCountry.setText("• Status: " + parentObject.getString("status"));
+        textViewVoteAverage.setText(parentObject.getString("vote_average"));
+        try {
+            textViewDirector.setText("• Last Air Date: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("last_air_date")));
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = format.parse(parentObject.getString("first_air_date"));
+            String year = (String) DateFormat.format("yyyy", date);
+            textViewYear.setText(year);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String tvName = parentObject.getString("original_name");
+
         //Showing Seasons
         JSONArray parentArray = parentObject.getJSONArray("seasons");
         for (int i = parentArray.length() - 1; i >= 0; i--) {
@@ -347,21 +234,47 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         recyclerViewSeasons.setItemAnimator(new DefaultItemAnimator());
         adapterTvShowSeasons = new TvShowSeasonsAdapter(getApplicationContext(), seasonsTvShowList);
         recyclerViewSeasons.setAdapter(adapterTvShowSeasons);
+
+        //Casting
+        JSONObject castingObject= parentObject.getJSONObject("credits");
+        JSONArray castingArray = castingObject.getJSONArray("cast");
+        for(int i=0;i<castingArray.length();i++){
+            JSONObject finalObject = castingArray.getJSONObject(i);
+            TvShow tvShow = new TvShow();
+            tvShow.setTvShowCastCharacter(finalObject.getString("character"));
+            tvShow.setTvShowCastId(finalObject.getString("id"));
+            tvShow.setTvShowCastName(finalObject.getString("name"));
+            tvShow.setTvShowCastProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
+            tvShowCastingList.add(tvShow);
+        }
+        layoutManagerTvShowCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewTvShowCasting = (RecyclerView) findViewById(R.id.recyclerViewTvShowCasting);
+        recyclerViewTvShowCasting.setLayoutManager(layoutManagerTvShowCasting);
+        recyclerViewTvShowCasting.setItemAnimator(new DefaultItemAnimator());
+        adapterTvShowCasting = new TvShowCastingAdapter(getApplicationContext(), tvShowCastingList);
+        recyclerViewTvShowCasting.setAdapter(adapterTvShowCasting);
+
+        //Similar TvShows
+        JSONObject similarObject= parentObject.getJSONObject("similar");
+        JSONArray similarArray = similarObject.getJSONArray("results");
+        for(int i=0;i<similarArray.length();i++){
+            JSONObject finalObject = similarArray.getJSONObject(i);
+            Movie movieModel = new Movie();
+            movieModel.setSimilarId(finalObject.getString("id"));
+            movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+            similarTvShowList.add(movieModel);
+        }
+        similarTvShowLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewSimilar = (RecyclerView) findViewById(R.id.recyclerViewSimilar);
+        recyclerViewSimilar.setLayoutManager(similarTvShowLayoutManager);
+        recyclerViewSimilar.setItemAnimator(new DefaultItemAnimator());
+        adapterSimilarTvShow = new SimilarTvShowAdapter(getApplicationContext(), similarTvShowList);
+        recyclerViewSimilar.setAdapter(adapterSimilarTvShow);
+        container.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
-    /**
-     * Parse and display the data from imdb
-     */
-    private void parseAndDisplayDataImdb(String response) throws JSONException {
-        //ToDo: Add this data for on persistent storage
-        JSONObject parentObject = new JSONObject(response);
-        textViewMovieOrTvShow.setText(parentObject.getString("Type"));
-        textViewYear.setText(parentObject.getString("Year"));
-        textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
-        textViewDirector.setText("Writer:  " + parentObject.getString("Writer"));
-        textViewCountry.setText( parentObject.getString("Country"));
-        textViewVoteAverage.setText( parentObject.getString("imdbRating"));
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
