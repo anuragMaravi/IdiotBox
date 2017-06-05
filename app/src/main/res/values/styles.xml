@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/background</item>
         <item name="colorPrimaryDark">#000</item>
-        <item name="colorAccent">@color/tv_show_accent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

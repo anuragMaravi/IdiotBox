@@ -1,16 +1,46 @@
-<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- These settings headers are only used on tablets. -->
+    <PreferenceCategory
+    android:title="@string/pref_header_general"
+    android:key="language_country">
+        <ListPreference
+            android:defaultValue="@string/pref_title_country_default_value"
+            android:entries="@array/pref_example_list_titles"
+            android:entryValues="@array/pref_example_list_values"
+            android:key="country"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_add_friends_to_messages" />
+        <ListPreference
+            android:defaultValue="@string/pref_title_language_default_value"
+            android:entries="@array/pref_list_language"
+            android:entryValues="@array/pref_list_language_values"
+            android:key="language"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_language" />
 
-    <header
-        android:fragment="com.merakiphi.idiotbox.activity.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
-        android:title="@string/pref_header_general" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_header_data_sync"
+        android:key="images_videos">
 
-    <header
-        android:fragment="com.merakiphi.idiotbox.activity.SettingsActivity$DataSyncPreferenceFragment"
-        android:icon="@drawable/ic_sync_black_24dp"
-        android:title="@string/pref_header_data_sync" />
+        <ListPreference
+            android:defaultValue="@string/pref_image_default_value"
+            android:entries="@array/pref_sync_frequency_titles"
+            android:entryValues="@array/pref_sync_frequency_values"
+            android:key="poster_size"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_sync_frequency" />
 
-
-</preference-headers>
+        <ListPreference
+            android:defaultValue="@string/pref_youtube_thumbnail_default_value"
+            android:entries="@array/pref_youtube_thumbnail"
+            android:entryValues="@array/pref_youtube_thumbnail_values"
+            android:key="youtube_thumbnail"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_youtube_thumbnail" />
+    </PreferenceCategory>
+</PreferenceScreen>

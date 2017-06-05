@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/tv_show_accent"/>
+            app:tabSelectedTextColor="@color/tv_show_accent"
+        app:tabIndicatorColor="@color/tv_show_accent" />
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

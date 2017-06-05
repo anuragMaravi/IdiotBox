@@ -1,5 +1,6 @@
 package com.merakiphi.idiotbox.activity;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -15,7 +16,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try {
-                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + "com.kkings.cinematics")
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + "com.merakiphi.idiotbox")
                         .timeout(30000)
                         .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
                         .referrer("http://www.google.com")
