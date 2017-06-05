@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.MOVIE_NOW_PLAYING_REQUEST;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 
@@ -65,8 +66,9 @@ public class MoviesInTheatresFragment extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //Get the region from the settings and append to the request
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String region = REGION + prefs.getString("example_list", "");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
 
         /**
          * In Theatres Movies
@@ -77,7 +79,11 @@ public class MoviesInTheatresFragment extends Fragment {
         recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
         recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerViewMoviesInTheatres.setItemAnimator(new DefaultItemAnimator());
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_NOW_PLAYING_REQUEST + region,
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_NOW_PLAYING_REQUEST +
+                    //Language parameter
+                    LANGUAGE + language +
+                    //Region parameter
+                     REGION + region,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

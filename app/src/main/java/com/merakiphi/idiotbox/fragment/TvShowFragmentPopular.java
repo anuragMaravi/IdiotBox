@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_URL;
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.TV_POPULAR_REQUEST;
 
@@ -69,8 +70,9 @@ public class TvShowFragmentPopular extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //Get the region from the settings and append to the request
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String region = REGION + prefs.getString("example_list", "");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
 
         /**
          * Popular Tv shows
@@ -81,7 +83,11 @@ public class TvShowFragmentPopular extends Fragment {
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
 
         recyclerViewTvShows.setItemAnimator(new DefaultItemAnimator());
-            StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_POPULAR_REQUEST + region,
+            StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_POPULAR_REQUEST +
+                    //Language parameter
+                    LANGUAGE + language +
+                    //Region parameter
+                    REGION + region,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

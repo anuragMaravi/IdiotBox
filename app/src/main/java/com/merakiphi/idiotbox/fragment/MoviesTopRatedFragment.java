@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.MOVIE_TOP_RATED_REQUEST;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 
@@ -67,9 +68,11 @@ public class MoviesTopRatedFragment extends Fragment {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
-//Get the region from the settings and append to the request
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String region = REGION + prefs.getString("example_list", "");
+        //Get the region from the settings and append to the request
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
+
         /**
          * Top Rated Movies
          */
@@ -79,7 +82,11 @@ public class MoviesTopRatedFragment extends Fragment {
         recyclerViewMoviesTopRated.setLayoutManager(mLayoutManager);
         recyclerViewMoviesTopRated.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerViewMoviesTopRated.setItemAnimator(new DefaultItemAnimator());
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_TOP_RATED_REQUEST + region,
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_TOP_RATED_REQUEST +
+                    //Language parameter
+                    LANGUAGE + language +
+                    //Region parameter
+                    REGION + region,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

@@ -77,11 +77,13 @@
     <string name="pref_title_language">Select language</string>
     <string-array name="pref_list_language">
         <item>English</item>
-        <item>German</item>
+        <item>German - Deutsch</item>
+        <item>Japanese - 日本語 (にほんご)</item>
     </string-array>
     <string-array name="pref_list_language_values">
         <item>en</item>
         <item>de</item>
+        <item>ja</item>
     </string-array>
     <string name="pref_title_language_default_value">en</string>
 

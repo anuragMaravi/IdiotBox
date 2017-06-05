@@ -31,6 +31,7 @@ import java.util.List;
 
 import static com.android.volley.VolleyLog.TAG;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_URL;
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.TV_AIRING_TODAY_REQUEST;
 
@@ -67,8 +68,9 @@ public class TvShowFragmentAiringToday extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //Get the region from the settings and append to the request
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String region = REGION + prefs.getString("example_list", "");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
 
         /**
          * Popular Tv shows
@@ -77,7 +79,11 @@ public class TvShowFragmentAiringToday extends Fragment {
         layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShows);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
-        StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_AIRING_TODAY_REQUEST + region,
+        StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_AIRING_TODAY_REQUEST +
+                //Language parameter
+                LANGUAGE + language +
+                //Region parameter
+                REGION + region,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
