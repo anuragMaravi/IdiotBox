@@ -137,6 +137,7 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
 
             searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+            searchView.setQueryHint("Search movies and tv shows...");
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(true);
             searchView.setOnQueryTextListener(this);

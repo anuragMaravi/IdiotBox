@@ -51,6 +51,8 @@ import static com.merakiphi.idiotbox.other.Contract.API_MOVIE;
 import static com.merakiphi.idiotbox.other.Contract.API_URL;
 import static com.merakiphi.idiotbox.other.Contract.APPEND;
 import static com.merakiphi.idiotbox.other.Contract.CREDITS;
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
+import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.SEPARATOR;
 import static com.merakiphi.idiotbox.other.Contract.SIMILAR;
 import static com.merakiphi.idiotbox.other.Contract.VIDEOS;
@@ -118,7 +120,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String region = prefs.getString("example_list", "");
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
 
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()){
             setContentView(R.layout.activity_movie_details);
@@ -163,7 +166,13 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             /**
              * Movie Details with videos, images, credits, similar
              */
-            movieDetailsRequest = API_URL + API_MOVIE + movieId + "?api_key=" + API_KEY + APPEND + VIDEOS + SEPARATOR + CREDITS + SEPARATOR + SIMILAR;
+            movieDetailsRequest = API_URL + API_MOVIE + movieId + "?api_key=" + API_KEY +
+                    //Language parameter
+                    LANGUAGE + language +
+                    //Region parameter
+                    REGION + region +
+                    //Append to response parameters
+                    APPEND + VIDEOS + SEPARATOR + CREDITS + SEPARATOR + SIMILAR;
             Log.i(TAG, "New Request: " + movieDetailsRequest);
             StringRequest stringRequestTmdb = new StringRequest(Request.Method.GET, movieDetailsRequest,
                     new Response.Listener<String>() {

@@ -188,8 +188,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_region_language);
             setHasOptionsMenu(true);
 
-//            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
+            bindPreferenceSummaryToValue(findPreference("language"));
+            bindPreferenceSummaryToValue(findPreference("country"));
         }
 
         @Override

@@ -6,7 +6,7 @@
         android:layout_height="30dp"
         android:background="@drawable/button"
         android:textSize="12sp"
-        android:textColor="#fff"
+        android:textColor="#9E9E9E"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:layout_marginLeft="4dp"/>

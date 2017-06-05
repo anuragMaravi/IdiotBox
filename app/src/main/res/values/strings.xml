@@ -29,7 +29,7 @@
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="dot">• </string>
-    <string name="search_hint">Search Movies, TvShows</string>
+    <string name="search_hint">Search</string>
     <string name="search">Search</string>
     <string name="no_internet">Some error occurred!\n Please check your internet connection.</string>
     <string name="title_activity_settings">Settings</string>
@@ -37,7 +37,7 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">Language &amp; Region</string>
+    <string name="pref_header_general">Language &amp; Country</string>
 
     <string name="pref_title_social_recommendations">Enable adult content</string>
     <string name="pref_description_social_recommendations">Search and view adult contents
@@ -46,7 +46,7 @@
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
 
-    <string name="pref_title_add_friends_to_messages">Select your region</string>
+    <string name="pref_title_add_friends_to_messages">Select country</string>
     <string-array name="pref_example_list_titles">
         <item>None</item>
         <item>Australia</item>
@@ -71,9 +71,23 @@
         <item>GB</item>
         <item>US</item>
     </string-array>
+    <string name="pref_title_country_default_value">IN</string>
 
 
-    <!-- Example settings for Data & Sync -->
+    <string name="pref_title_language">Select language</string>
+    <string-array name="pref_list_language">
+        <item>English</item>
+        <item>German</item>
+    </string-array>
+    <string-array name="pref_list_language_values">
+        <item>en</item>
+        <item>de</item>
+    </string-array>
+    <string name="pref_title_language_default_value">en</string>
+
+
+
+    <!-- Example settings for Data & pref_title_language_default_valueSync -->
     <string name="pref_header_data_sync">Images &amp; Videos</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
