@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(null);
 
         //Initialising AdMob
-        // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, "ca-app-pub-3259009684379327~5979085895");
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Start loading the ad in the background.
         mAdView.loadAd(adRequest);
+
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
