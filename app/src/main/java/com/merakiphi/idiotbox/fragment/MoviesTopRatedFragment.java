@@ -24,7 +24,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.MoviesAdapter;
 import com.merakiphi.idiotbox.model.Movie;
-import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
@@ -34,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.MOVIE_TOP_RATED_REQUEST;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
@@ -72,6 +72,7 @@ public class MoviesTopRatedFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String region = prefs.getString("country", "IN"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
 
         /**
          * Top Rated Movies
@@ -98,7 +99,7 @@ public class MoviesTopRatedFragment extends Fragment {
                                     JSONObject finalObject = parentArray.getJSONObject(i);
                                     Movie movieModel = new Movie();
                                     movieModel.setId(finalObject.getString("id"));
-                                    movieModel.setPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+                                    movieModel.setPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
 
                                     movieListTopRated.add(movieModel);
                                 }
@@ -113,7 +114,7 @@ public class MoviesTopRatedFragment extends Fragment {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
                 }
             });
             // Add the request to the RequestQueue.

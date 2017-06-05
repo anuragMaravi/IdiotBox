@@ -101,7 +101,7 @@ public class SeasonActivity extends AppCompatActivity {
             progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
             imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
-        imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            imageViewPoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isShown) {

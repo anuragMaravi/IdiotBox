@@ -1,6 +1,8 @@
 package com.merakiphi.idiotbox.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,9 +46,12 @@ import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
+import static com.merakiphi.idiotbox.other.Contract.API_KEY;
 import static com.merakiphi.idiotbox.other.Contract.API_URL;
 import static com.merakiphi.idiotbox.other.Contract.APPEND;
 import static com.merakiphi.idiotbox.other.Contract.CREDITS;
+import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
+import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.SEPARATOR;
 import static com.merakiphi.idiotbox.other.Contract.SIMILAR;
 
@@ -93,9 +98,16 @@ public class TvShowDetailsActivity extends AppCompatActivity {
     //To show or hide title box
     boolean isShown = true;
 
+    private SharedPreferences prefs;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String region = prefs.getString("country", "IN"); //Default: India
+        String language = prefs.getString("language", "en"); //Default: English
+
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
             setContentView(R.layout.activity_tvshow_details);
         TAG = getClass().getSimpleName();
@@ -141,7 +153,12 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         /**
          * Tv Show Details
          */
-        tvShowDetailsRequest = API_URL + Contract.API_TV + "/" + tvShowId + "?api_key=" + Contract.API_KEY + APPEND + CREDITS + SEPARATOR + SIMILAR;
+        tvShowDetailsRequest = API_URL + Contract.API_TV + "/" + tvShowId + "?api_key=" + API_KEY +
+                //Language parameter
+                LANGUAGE + language +
+                //Region parameter
+                REGION + region +
+                APPEND + CREDITS + SEPARATOR + SIMILAR;
             Log.i(TAG, "onCreate: " + tvShowDetailsRequest);
             StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
                 new Response.Listener<String>() {
@@ -191,7 +208,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
      * Parse and display the data from tmdb
      */
     private void parseAndDisplayData(String response) throws JSONException {
-        //ToDo: Add this data for on persistent storage
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
+
         JSONObject parentObject = new JSONObject(response);
         Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into((ImageView) findViewById(R.id.imageViewPoster));
 
@@ -224,7 +242,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
             tvShow.setsTvShowId(tvShowId);
             tvShow.setTvShowSeasonNumber(finalObject.getString("season_number"));
             tvShow.setTvShowNetworkName(tvName);
-            tvShow.setTvShowSeasonPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+            tvShow.setTvShowSeasonPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
             seasonsTvShowList.add(tvShow);
         }
         //RecyclerView  TvShow Seasons
@@ -244,7 +262,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
             tvShow.setTvShowCastCharacter(finalObject.getString("character"));
             tvShow.setTvShowCastId(finalObject.getString("id"));
             tvShow.setTvShowCastName(finalObject.getString("name"));
-            tvShow.setTvShowCastProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
+            tvShow.setTvShowCastProfilePath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("profile_path"));
             tvShowCastingList.add(tvShow);
         }
         layoutManagerTvShowCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -261,7 +279,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
             JSONObject finalObject = similarArray.getJSONObject(i);
             Movie movieModel = new Movie();
             movieModel.setSimilarId(finalObject.getString("id"));
-            movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+            movieModel.setSimilarPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
             similarTvShowList.add(movieModel);
         }
         similarTvShowLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

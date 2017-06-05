@@ -10,15 +10,16 @@ public class Contract {
     public final static String API_KEY = "0744794205a0d39eef72cad8722d4fba";
     //Base Url
     public final static String API_URL = "http://api.themoviedb.org/3/";
-    //Image Base Url
-    public final static String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
+
 
     //Query strings
     public final static String API_MOVIE = "movie/";
     public final static String API_TV = "tv";
     public final static String API_CASTING = "person";
 
-    //Image Sizes
+    //Image Base Url
+    public final static String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
+    //Poster Image Sizes
     public final static String apiImageSizeOriginal = "original";
     public final static String apiImageSizeXXXL = "w780";
     public final static String API_IMAGE_SIZE_XXL = "w500";

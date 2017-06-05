@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 
@@ -71,6 +72,7 @@ public class MoviesUpcomingFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String region = prefs.getString("country", "IN"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
 
         /**
          * Upcoming Movies
@@ -97,7 +99,7 @@ public class MoviesUpcomingFragment extends Fragment {
                                     JSONObject finalObject = parentArray.getJSONObject(i);
                                     Movie movieModel = new Movie();
                                     movieModel.setId(finalObject.getString("id"));
-                                    movieModel.setPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+                                    movieModel.setPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
 
                                     movieListUpcoming.add(movieModel);
                                 }

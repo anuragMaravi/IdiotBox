@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_URL;
+import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.LANGUAGE;
 import static com.merakiphi.idiotbox.other.Contract.REGION;
 import static com.merakiphi.idiotbox.other.Contract.TV_POPULAR_REQUEST;
@@ -73,6 +73,7 @@ public class TvShowFragmentPopular extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String region = prefs.getString("country", "IN"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
 
         /**
          * Popular Tv shows
@@ -104,7 +105,7 @@ public class TvShowFragmentPopular extends Fragment {
                                 tvShow.setTvShowId(finalObject.getString("id"));
 //                                tvShow.setTvShowFirstAirDate(finalObject.getString("first_air_date"));
 //                                tvShow.setTvShowBackdropPath(finalObject.getString("backdrop_path"));
-                                tvShow.setTvShowPosterPath(API_IMAGE_URL + finalObject.getString("poster_path"));
+                                tvShow.setTvShowPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                 tvShowsListPopular.add(tvShow);
 
                             }

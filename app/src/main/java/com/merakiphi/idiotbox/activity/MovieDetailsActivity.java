@@ -30,7 +30,6 @@ import com.merakiphi.idiotbox.adapter.SimilarAdapter;
 import com.merakiphi.idiotbox.adapter.TrailerAdapter;
 import com.merakiphi.idiotbox.model.Movie;
 import com.merakiphi.idiotbox.other.CheckInternet;
-import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -114,12 +113,14 @@ public class MovieDetailsActivity  extends AppCompatActivity {
     //To show or hide title box
     boolean isShown = true;
 
+    private SharedPreferences prefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String region = prefs.getString("country", "IN"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
 
@@ -204,6 +205,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
      * Parse and display the data from tmdb
      */
     private void parseAndDisplayData(String response) throws JSONException {
+        final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
+
         final JSONObject parentObject = new JSONObject(response);
         Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into(imageViewPoster);
         textViewOverview.setText(parentObject.getString("overview"));
@@ -266,7 +269,7 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             JSONObject finalObject = similarArray.getJSONObject(i);
             Movie movieModel = new Movie();
             movieModel.setSimilarId(finalObject.getString("id"));
-            movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+            movieModel.setSimilarPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
             similarMovieList.add(movieModel);
         }
         similarLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -286,7 +289,7 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             movieModel.setCastingId(finalObject.getString("id"));
             movieModel.setCastingCharacter(finalObject.getString("character"));
             movieModel.setCastingName(finalObject.getString("name"));
-            movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
+            movieModel.setCastingProfilePath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("profile_path"));
             castingList.add(movieModel);
         }
         layoutManagerCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

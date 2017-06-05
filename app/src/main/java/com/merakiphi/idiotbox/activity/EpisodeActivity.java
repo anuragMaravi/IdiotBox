@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.merakiphi.idiotbox.other.CheckError;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.EpisodesAdapter;
 import com.merakiphi.idiotbox.adapter.SeasonListAdapter;
@@ -42,7 +41,6 @@ import java.util.List;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
 import static com.merakiphi.idiotbox.other.Contract.API_URL;
-import static com.merakiphi.idiotbox.other.Contract.OMDB_BASE_URL;
 
 /**
  * Created by anuragmaravi on 03/02/17.
@@ -126,7 +124,7 @@ public class EpisodeActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.
@@ -134,9 +132,6 @@ public class EpisodeActivity extends AppCompatActivity {
 
         //Show Episodes List
         displayTvShowEpisodes();
-
-        //Display Imdb data
-        parseAndDisplayImdbData();
 
         //Show SeasonsList
         try {
@@ -181,62 +176,14 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewTitle.setText(parentObject.getString("name"));
         textViewMovieOrTvShow.setText( "Season " + parentObject.getString("season_number") + " Ep " + parentObject.getString("episode_number"));
 
+        //jhgfcfghmc
+        textViewVoteAverage.setText(parentObject.getString("imdbRating"));
+        textViewYear.setText(parentObject.getString("Year"));
+        textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
+        textViewCountry.setText( parentObject.getString("Country"));
+        textViewDirector.setText("Director: " + parentObject.getString("Director"));
     }
-    /**
-     * Parse and display the data from Imdb
-     */
-    private void parseAndDisplayImdbData() {
-        final String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "/external_ids?api_key=" + Contract.API_KEY;
-        StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, episodeUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(Episode External Ids): " + response);
-                        try {
-                            final JSONObject parentObject= new JSONObject(response);
 
-                            //Again send the request to the Omdb using imdb_id
-                            StringRequest stringRequestImdb = new StringRequest(Request.Method.GET, OMDB_BASE_URL + parentObject.getString("imdb_id"),
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.i(TAG, "onResponse(Episode Details Imdb): " + response);
-                                            try {
-                                                Log.i(TAG, "URL (IMDB): " + OMDB_BASE_URL + parentObject.getString("imdb_id"));
-                                                JSONObject parentObject= new JSONObject(response);
-                                                textViewVoteAverage.setText(parentObject.getString("imdbRating"));
-                                                textViewYear.setText(parentObject.getString("Year"));
-                                                textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
-                                                textViewCountry.setText( parentObject.getString("Country"));
-                                                textViewDirector.setText("Director: " + parentObject.getString("Director"));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-                                    }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    new CheckError(getApplicationContext(), error, "IMDb");
-                                }
-                            });
-                            // Add the request to the RequestQueue.
-                            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestImdb);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestEpisodes);
-    }
 
 
     /**
