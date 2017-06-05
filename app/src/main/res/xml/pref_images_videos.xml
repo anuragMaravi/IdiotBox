@@ -9,5 +9,14 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_title_sync_frequency" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_youtube_thumbnail_default_value"
+        android:entries="@array/pref_youtube_thumbnail"
+        android:entryValues="@array/pref_youtube_thumbnail_values"
+        android:key="youtube_thumbnail"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_youtube_thumbnail" />
+
 
 </PreferenceScreen>

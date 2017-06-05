@@ -250,6 +250,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("poster_size"));
+            bindPreferenceSummaryToValue(findPreference("youtube_thumbnail"));
         }
 
         @Override

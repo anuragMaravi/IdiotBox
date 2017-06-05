@@ -100,7 +100,7 @@
         <item>Medium</item>
         <item>High</item>
         <item>Very High</item>
-        <item>Original</item>
+        <item>Maximum</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>w342/</item>
@@ -113,21 +113,22 @@
     </string-array>
     <string name="pref_image_default_value">w342/</string>
 
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
+    <string name="pref_youtube_thumbnail">Video Thumbnail Quality</string>
+    <string-array name="pref_youtube_thumbnail">
+        <item>Default</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+        <item>Very High</item>
     </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+    <string-array name="pref_youtube_thumbnail_values">
+        <item>/sddefault.jpg</item>
+        <item>/mqdefault.jpg</item>
+        <item>/sddefault.jpg</item>
+        <item>/hqdefault.jpg</item>
+        <item>/maxresdefault.jpg</item>
     </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
+    <string name="pref_youtube_thumbnail_default_value">/sddefault.jpg</string>
 
 
     <!-- Example settings for Notifications -->

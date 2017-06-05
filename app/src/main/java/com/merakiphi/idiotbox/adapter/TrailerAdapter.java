@@ -3,7 +3,9 @@ package com.merakiphi.idiotbox.adapter;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,6 @@ import com.merakiphi.idiotbox.model.Movie;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.YOUTUBE_BASE_THUMBNAIL;
-import static com.merakiphi.idiotbox.other.Contract.YOUTUBE_QUALITY_THUMBNAIL_MQ;
 
 /**
  * Created by anuragmaravi on 30/01/17.
@@ -37,8 +38,10 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String youtubeThumbnail = prefs.getString("youtube_thumbnail", "/sddefault.jpg");
         final Movie movie = trailersList.get(position);
-        String url = YOUTUBE_BASE_THUMBNAIL + movie.getVideoKey() + YOUTUBE_QUALITY_THUMBNAIL_MQ;
+        String url = YOUTUBE_BASE_THUMBNAIL + movie.getVideoKey() + youtubeThumbnail;
         holder.textViewVideoType.setText(movie.getVideoType());
         holder.textViewTrailerName.setText(movie.getVideoName());
         Glide.with(context).load(url).into(holder.imageViewVideo);
