@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="732e324b521eae10c832d371391861468bbceeea">
+        <dex dex="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_516142f599c2e2c5f36f392af5c0965c6243aea8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/anuragmaravi/Documents/Android/Android Projects/IdiotBox/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1f4af330064489c50d2730aa908ac3f2d689447c/classes.dex" />
+    </item>
+
+</items>

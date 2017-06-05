@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="180dp"
+    android:layout_marginRight="4dp"
+    >
+    <ImageView
+        android:id="@+id/imageViewVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/title_background"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_circle_outline_white_36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:id="@+id/imageView" />
+
+    <com.merakiphi.idiotbox.other.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Trailer Name"
+        android:textColor="#fff"
+        android:layout_above="@+id/textViewVideoType"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="64dp"
+        android:id="@+id/textViewTrailerName" />
+
+    <TextView
+        android:id="@+id/textViewVideoType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@color/colorAccent"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignLeft="@+id/textViewTrailerName"
+        android:layout_alignStart="@+id/textViewTrailerName" />
+
+
+</RelativeLayout>

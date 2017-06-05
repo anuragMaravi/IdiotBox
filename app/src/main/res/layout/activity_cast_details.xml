@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <ScrollView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageViewPoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/title_background"
+                    android:orientation="vertical"
+                    android:gravity="bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:paddingTop="80dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin">
+                <TextView
+                    android:id="@+id/textViewMovieOrTvShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                    android:text="Movie/TvShow"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="@color/colorAccent"
+                    />
+
+                    </LinearLayout>
+
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:text="Movie Title"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:textSize="@dimen/title"
+                        android:textColor="#fff"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:id="@+id/textViewTitle" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+
+                    android:layout_marginTop="8dp">
+
+            <com.merakiphi.idiotbox.other.CustomTextView
+            android:id="@+id/textViewDirector"
+            android:text="Director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingBottom="8dp"
+                android:textColor="#9E9E9E"
+            />
+
+                    <com.merakiphi.idiotbox.other.CustomTextView
+                        android:id="@+id/textViewCountry"
+                        android:text="Country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:paddingBottom="@dimen/activity_horizontal_margin"
+                        android:textColor="#9E9E9E"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#131b1e">
+                <TextView
+                    android:text="Follow On"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#455A64"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/imageViewFollowImdb"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/imdb_sq_logo"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/imageViewFollowInstagram"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/instagram_logo"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/imageViewFollowTwitter"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/twitter_logo"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/imageViewFollowFacebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/facebook_logo"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </LinearLayout>
+            <com.merakiphi.idiotbox.other.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BIOGRAPHY:"
+                android:paddingTop="16dp"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:textColor="#000"
+                android:background="#fff"
+                />
+
+            <com.merakiphi.idiotbox.other.CustomTextView
+                android:background="#fff"
+                android:id="@+id/textViewOverview"
+                android:text="Overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#131b1e">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_movie_white_36dp"
+                    />
+
+                <TextView
+                    android:text="Movies"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewCastingMovies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#131b1e">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tv_white_36dp" />
+
+                <TextView
+                    android:text="Tv Shows"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"
+                    android:id="@+id/textView" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewCastingTvShows"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#131b1e">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_panorama_white_36dp" />
+
+                <TextView
+                    android:text="Images"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewImages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+    </ScrollView>
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/upper"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+</FrameLayout>

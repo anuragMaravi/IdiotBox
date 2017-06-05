@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/background</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">@color/tv_show_accent</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="MovieDetails" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="actionBarStyle">@style/action_bar_theme</item>
+    </style>
+    <style name="Main" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@color/background</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <item name="actionBarStyle">@style/action_bar_theme</item>
+    </style>
+
+    <style name="action_bar_theme">
+        <item name="android:background">#b3000000</item>
+    </style>
+
+
+    <style name="PreferencesTheme">
+        <item name="android:background">@color/background</item>
+    </style>
+</resources>
