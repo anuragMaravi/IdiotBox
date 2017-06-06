@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="160dp"
     android:orientation="horizontal"
     android:layout_marginBottom="4dp">
 
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitStart"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         />
 
     <LinearLayout
@@ -36,20 +36,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date"
-            android:textColor="#fff"
+            android:textColor="#9E9E9E"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitStart"
+                android:src="@drawable/tmdb_sq" />
+            <TextView
+                android:id="@+id/textViewVoteAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7.8"
+                android:textColor="#00E676"
+                android:textSize="14sp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="2dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
     <TextView
         android:id="@+id/textViewType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1.8"
         android:layout_margin="8dp"
         android:fontFamily="sans-serif-smallcaps"
+        android:gravity="center_horizontal"
         android:text="Movie"
-        android:textColor="@color/tv_show_accent"/>
-
+        android:textColor="@color/tv_show_accent" />
 
 </LinearLayout>

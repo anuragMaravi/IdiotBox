@@ -76,7 +76,6 @@
     <string name="pref_title_language_default_value">en</string>
 
 
-
     <!-- Example settings for Data & pref_title_language_default_valueSync -->
     <string name="pref_header_data_sync">Images &amp; Videos</string>
 
@@ -117,7 +116,6 @@
         <item>/maxresdefault.jpg</item>
     </string-array>
     <string name="pref_youtube_thumbnail_default_value">/sddefault.jpg</string>
-
 
 
     <!-- Ad Unit Id-->

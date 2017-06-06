@@ -142,14 +142,15 @@
                         android:id="@+id/textViewVoteAverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#FFC107"
+                        android:textColor="#00E676"
+                        android:text="7.8"
                         android:textSize="20sp"
                         />
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:scaleType="fitStart"
-                        android:src="@drawable/imdb_logo"/>
+                        android:src="@drawable/tmdb_sq"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -206,14 +207,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <!--<ImageView-->
-                <!--android:id="@+id/imageViewSimilarBackDrop"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:src="@drawable/sample_poster"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--/>-->
-
 
                 <LinearLayout
                     android:id="@+id/linearLayout"

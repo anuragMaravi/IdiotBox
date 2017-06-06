@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,14 +28,15 @@ import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.SearchResultAdapter;
 import com.merakiphi.idiotbox.model.SearchResults;
 import com.merakiphi.idiotbox.other.CheckInternet;
-import com.merakiphi.idiotbox.other.DateFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
@@ -190,16 +192,26 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
                             for(int i=0;i<parentArray.length();i++){
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 SearchResults searchResults = new SearchResults();
+                                if(finalObject.getString("media_type").equals("person")){
+                                    continue;
+                                }
                                 searchResults.setPosterPath(API_IMAGE_BASE_URL + API_IMAGE_SIZE_M + "/" + finalObject.getString("poster_path"));
+                                searchResults.setVoteAverage(finalObject.getString("vote_average"));
                                 searchResults.setId(finalObject.getString("id"));
                                 searchResults.setMediaType(finalObject.getString("media_type"));
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
                                 if(finalObject.getString("media_type").equals("movie")) {
-                                    searchResults.setReleaseDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("release_date")));
                                     searchResults.setOriginalTitle(finalObject.getString("original_title"));
+                                        Date date = format.parse(finalObject.getString("release_date"));
+                                        String year = (String) DateFormat.format("yyyy", date);
+                                        searchResults.setReleaseDate(year);
                                 }
                                 if(finalObject.getString("media_type").equals("tv")){
-                                    searchResults.setReleaseDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("first_air_date")));
                                     searchResults.setOriginalTitle(finalObject.getString("original_name"));
+                                        Date date = format.parse(finalObject.getString("first_air_date"));
+                                        String year = (String) DateFormat.format("yyyy", date);
+                                        searchResults.setReleaseDate(year);
                                 }
                                 searchResultsList.add(searchResults);
                             }

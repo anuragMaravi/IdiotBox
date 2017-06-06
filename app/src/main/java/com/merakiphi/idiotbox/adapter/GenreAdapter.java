@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.merakiphi.idiotbox.R;
-import com.merakiphi.idiotbox.activity.MovieDetailsActivity;
+import com.merakiphi.idiotbox.activity.GenreListActivity;
 import com.merakiphi.idiotbox.model.Movie;
 
 import java.util.List;
@@ -37,8 +37,9 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-                intent.putExtra("movie_id", movie.getSimilarId());
+                Intent intent = new Intent(mContext, GenreListActivity.class);
+                intent.putExtra("genre_id", movie.getGenreId());
+                intent.putExtra("genre_name", movie.getGenreName());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

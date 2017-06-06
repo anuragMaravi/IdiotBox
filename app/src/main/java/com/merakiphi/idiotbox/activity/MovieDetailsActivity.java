@@ -62,16 +62,9 @@ import static com.merakiphi.idiotbox.other.Contract.VIDEOS;
 
 public class MovieDetailsActivity  extends AppCompatActivity {
 
-    /**
-     * ToDo:
-     * 2. Sort By
-     * 3. Language Field
-     * 4. Adult Content Field
-     */
-
     public static String TAG;
     String movieId;
-    static String movieDetailsRequest;
+    private String movieDetailsRequest;
     private TextView textViewDirector,
             textViewTitle,
             textViewVoteAverage,

@@ -121,7 +121,7 @@ public class TvShowFragmentPopular extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.

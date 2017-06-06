@@ -40,6 +40,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.textViewName.setText(movie.getOriginalTitle());
         holder.textViewDate.setText(movie.getReleaseDate());
         holder.textViewType.setText(movie.getMediaType());
+        holder.textViewVoteAverage.setText(movie.getVoteAverage());
         if(movie.getMediaType().equals("movie"))
             holder.textViewType.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         if(movie.getMediaType().equals("tv"))
@@ -76,13 +77,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageViewSearchPoster;
-        public TextView textViewName, textViewDate, textViewType;
+        public TextView textViewName, textViewDate, textViewType, textViewVoteAverage;
         public MyViewHolder(View view) {
             super(view);
             imageViewSearchPoster = (ImageView) view.findViewById(R.id.imageViewSearchPoster);
             textViewName = (TextView) view.findViewById(R.id.textViewName);
             textViewDate = (TextView) view.findViewById(R.id.textViewDate);
             textViewType = (TextView) view.findViewById(R.id.textViewType);
+            textViewVoteAverage = (TextView) view.findViewById(R.id.textViewVoteAverage);
         }
     }
 }

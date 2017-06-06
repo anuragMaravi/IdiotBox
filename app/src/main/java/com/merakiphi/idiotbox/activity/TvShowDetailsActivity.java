@@ -218,7 +218,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         textViewMovieTagline.setText(parentObject.getString("status"));
 
         textViewMovieOrTvShow.setText("Tv Show");
-        textViewReleaseDateRuntime.setText(("• Type: " + parentObject.getString("type")));
+        textViewReleaseDateRuntime.setText("• Type: " + parentObject.getString("type"));
         textViewCountry.setText("• Status: " + parentObject.getString("status"));
         textViewVoteAverage.setText(parentObject.getString("vote_average"));
         try {

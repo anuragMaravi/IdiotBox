@@ -1,14 +1,9 @@
 package com.merakiphi.idiotbox.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,7 +29,6 @@ import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,43 +48,43 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //Check for the update
-        String version = null;
-        try {
-            PackageManager manager = getPackageManager();
-            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-            version = String.valueOf(info.versionCode);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        VersionChecker versionChecker = new VersionChecker();
-        try {
-            String latestVersion = versionChecker.execute().get();
-            if(!latestVersion.equals(version)) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-                alertDialog.setCancelable(false);
-                alertDialog.setTitle("Update Required");
-                alertDialog.setMessage("A new update is available for Idiot Box. Please update the app to continue.\n\nNew Version: " + latestVersion);
-
-                alertDialog.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        final String appPackageName = getPackageName();
-                        try {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.kkings.cinematics" + appPackageName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                        }
-                        dialog.dismiss();
-                    }
-                });
-
-                alertDialog.setNegativeButton("NOT NOW", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                alertDialog.show();
-            } else {
+//        String version = null;
+//        try {
+//            PackageManager manager = getPackageManager();
+//            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+//            version = String.valueOf(info.versionName);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        VersionChecker versionChecker = new VersionChecker();
+//        try {
+//            String latestVersion = versionChecker.execute().get();
+//            if(!latestVersion.equals(version)) {
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+//                alertDialog.setCancelable(false);
+//                alertDialog.setTitle("Update Required");
+//                alertDialog.setMessage("A new update is available for Idiot Box. Please update the app to continue.\n\nNew Version: " + latestVersion);
+//
+//                alertDialog.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        final String appPackageName = getPackageName();
+//                        try {
+//                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.kkings.cinematics" + appPackageName)));
+//                        } catch (android.content.ActivityNotFoundException anfe) {
+//                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+//                        }
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                alertDialog.setNegativeButton("NOT NOW", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        finish();
+//                    }
+//                });
+//                alertDialog.show();
+//            } else {
                 setContentView(R.layout.activity_main);
                 toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
@@ -117,12 +111,12 @@ public class MainActivity extends AppCompatActivity {
                 fragme = new MoviesFragment();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, fragme).commit();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

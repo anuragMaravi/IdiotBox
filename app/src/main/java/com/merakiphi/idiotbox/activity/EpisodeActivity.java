@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,7 +37,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
@@ -177,11 +181,19 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewMovieOrTvShow.setText( "Season " + parentObject.getString("season_number") + " Ep " + parentObject.getString("episode_number"));
 
         //jhgfcfghmc
-        textViewVoteAverage.setText(parentObject.getString("imdbRating"));
-        textViewYear.setText(parentObject.getString("Year"));
-        textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
-        textViewCountry.setText( parentObject.getString("Country"));
-        textViewDirector.setText("Director: " + parentObject.getString("Director"));
+        textViewVoteAverage.setText(parentObject.getString("vote_average"));
+        textViewReleaseDateRuntime.setText("• Type: " + parentObject.getString("type"));
+        textViewCountry.setText("• Status: " + parentObject.getString("status"));
+
+        try {
+            textViewDirector.setText("• Air Date: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("last_air_date")));
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = format.parse(parentObject.getString("first_air_date"));
+            String year = (String) DateFormat.format("yyyy", date);
+            textViewYear.setText(year);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -293,4 +305,17 @@ public class EpisodeActivity extends AppCompatActivity {
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestEpisodesList);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

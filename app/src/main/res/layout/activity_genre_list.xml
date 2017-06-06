@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.merakiphi.idiotbox.activity.GenreListActivity"
+    android:orientation="vertical">
+    <com.merakiphi.idiotbox.other.CustomTextView
+        android:id="@+id/textViewGenreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="ACTION"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:layout_marginTop="30dp"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/recyclerViewGenreList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
