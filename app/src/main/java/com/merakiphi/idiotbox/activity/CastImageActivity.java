@@ -3,6 +3,7 @@ package com.merakiphi.idiotbox.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class CastImageActivity extends AppCompatActivity {
 
         //Request Cast Images
         String castingImagesRequest = API_URL + API_CASTING + "/" + getIntent().getStringExtra("profileId") + "/images?api_key=" + API_KEY;
+            Log.i(TAG, "Cast Images:" + castingImagesRequest);
         StringRequest stringRequestCastingImages = new StringRequest(Request.Method.GET, castingImagesRequest,
                 new Response.Listener<String>() {
                     JSONObject parentObject;
@@ -56,6 +58,7 @@ public class CastImageActivity extends AppCompatActivity {
                             for(int i=0;i<parentArray.length();i++){
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 Movie movieModel = new Movie();
+                                movieModel.setCastingId(parentObject.getString("id"));
                                 movieModel.setCastingProfilePath(finalObject.getString("file_path"));
                                 castingList.add(movieModel);
                             }
@@ -71,7 +74,7 @@ public class CastImageActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occurred.", Toast.LENGTH_SHORT).show();
             }
         });
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCastingImages);
@@ -107,7 +110,6 @@ public class CastImageActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -56,26 +56,22 @@ public class EpisodeActivity extends AppCompatActivity {
 
     //to measure the width
     private LinearLayout linearLayout;
-    private TextView textViewDirector,
-            textViewTitle,
+    private TextView textViewTitle,
             textViewVoteAverage,
             textViewReleaseDateRuntime,
             textViewOverview,
             textViewMovieOrTvShow,
-            textViewYear,
-            textViewTmdbVote,
-            textViewMovieTagline,
-            textViewCountry;
+            textViewYear;
 
     //Seasons of Tv Shows
     private RecyclerView recyclerViewSeasons;
-    private List<TvShow> seasonsTvShowList= new ArrayList<>();
+    private List<TvShow> seasonsTvShowList;
     private  RecyclerView.Adapter adapterTvShowSeasons;
     private RecyclerView.LayoutManager layoutManagerTvShowsSeasons;
 
     //Episodes
     private RecyclerView recyclerViewEpisodes;
-    private List<TvShow> listEpisodes= new ArrayList<>();
+    private List<TvShow> listEpisodes;
     private  RecyclerView.Adapter adapterEpisodes;
     private RecyclerView.LayoutManager layoutManagerEpisodes;
     private ScrollView container;
@@ -100,10 +96,7 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
         textViewYear = (TextView) findViewById(R.id.textViewYear);
         textViewReleaseDateRuntime = (TextView) findViewById(R.id.textViewReleaseDateRuntime);
-        textViewDirector = (TextView) findViewById(R.id.textViewDirector);
-        textViewCountry = (TextView) findViewById(R.id.textViewCountry);
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
-        textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
             progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -179,16 +172,12 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("name"));
         textViewMovieOrTvShow.setText( "Season " + parentObject.getString("season_number") + " Ep " + parentObject.getString("episode_number"));
-
-        //jhgfcfghmc
         textViewVoteAverage.setText(parentObject.getString("vote_average"));
-        textViewReleaseDateRuntime.setText("• Type: " + parentObject.getString("type"));
-        textViewCountry.setText("• Status: " + parentObject.getString("status"));
 
         try {
-            textViewDirector.setText("• Air Date: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("last_air_date")));
+            textViewReleaseDateRuntime.setText("• Air Date: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("air_date")));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = format.parse(parentObject.getString("first_air_date"));
+            Date date = format.parse(parentObject.getString("air_date"));
             String year = (String) DateFormat.format("yyyy", date);
             textViewYear.setText(year);
         } catch (ParseException e) {
@@ -209,6 +198,7 @@ public class EpisodeActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow Details): " + response);
                         try {
+                            seasonsTvShowList = new ArrayList<>();
                             JSONObject parentObject = new JSONObject(response);
                             //Showing Seasons
                             JSONArray parentArray = parentObject.getJSONArray("seasons");
@@ -261,6 +251,7 @@ public class EpisodeActivity extends AppCompatActivity {
                         Log.i(TAG, "onResponse(TvShow Season Details): " + response);
                         Log.i(TAG, "URL (TvShow Season Details): " + seasonUrl);
                         try {
+                            listEpisodes = new ArrayList<>();
                             JSONObject parentObject= new JSONObject(response);
                             JSONArray parentArray = parentObject.getJSONArray("episodes");
                             for(int i=0;i<parentArray.length();i++) {
@@ -298,7 +289,7 @@ public class EpisodeActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.

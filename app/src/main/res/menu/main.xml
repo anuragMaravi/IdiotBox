@@ -5,12 +5,13 @@
         android:id="@+id/action_settings"
         android:orderInCategory="101"
         android:title="Settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_about_us"
-        android:orderInCategory="101"
-        android:title="@string/activity_title_about_us"
-        app:showAsAction="never" />
+        app:showAsAction="collapseActionView|ifRoom"
+        android:icon="@drawable/ic_settings_white_24dp"/>
+    <!--<item-->
+        <!--android:id="@+id/action_about_us"-->
+        <!--android:orderInCategory="101"-->
+        <!--android:title="@string/activity_title_about_us"-->
+        <!--app:showAsAction="never" />-->
 
     <item android:id="@+id/search"
         android:orderInCategory="100"

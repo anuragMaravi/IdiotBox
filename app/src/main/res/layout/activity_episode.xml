@@ -102,33 +102,6 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <com.merakiphi.idiotbox.other.CustomTextView
-                        android:id="@+id/textViewDirector"
-                        android:text="Director"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/activity_vertical_margin"
-                        android:paddingBottom="8dp"
-                        android:textColor="#9E9E9E"
-                        />
-
-                    <com.merakiphi.idiotbox.other.CustomTextView
-                        android:id="@+id/textViewCountry"
-                        android:text="Country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/activity_vertical_margin"
-                        android:paddingBottom="@dimen/activity_horizontal_margin"
-                        android:textColor="#9E9E9E"
-                        />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -74,12 +74,6 @@ public class MoviesInTheatresFragment extends Fragment {
         /**
          * In Theatres Movies
          */
-        recyclerViewMoviesInTheatres = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesInTheatres);
-        movieListInTheatres = new ArrayList<>();
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
-        recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerViewMoviesInTheatres.setItemAnimator(new DefaultItemAnimator());
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_NOW_PLAYING_REQUEST +
                     //Language parameter
                     LANGUAGE + language +
@@ -89,6 +83,7 @@ public class MoviesInTheatresFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             try {
+                                movieListInTheatres = new ArrayList<>();
                                 Log.i("Volley", "onResponse(MovieInTheatres): " + response);
                                 JSONObject parentObject = new JSONObject(response);
                                 JSONArray parentArray = parentObject.getJSONArray("results");
@@ -99,6 +94,11 @@ public class MoviesInTheatresFragment extends Fragment {
                                     movieModel.setPosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                     movieListInTheatres.add(movieModel);
                                 }
+                                recyclerViewMoviesInTheatres = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesInTheatres);
+                                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+                                recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
+                                recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+                                recyclerViewMoviesInTheatres.setItemAnimator(new DefaultItemAnimator());
                                 adapter = new MoviesAdapter(getActivity(), movieListInTheatres);
                                 recyclerViewMoviesInTheatres.setAdapter(adapter);
                                 recyclerViewMoviesInTheatres.setVisibility(View.VISIBLE);
