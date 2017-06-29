@@ -29,7 +29,7 @@ import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
  */
 
 public class CastImageAdapter extends PagerAdapter {
-    Context context;
+    private Context context;
     private List<Movie> movieList = null;
     private LayoutInflater layoutInflater;
 
@@ -64,6 +64,7 @@ public class CastImageAdapter extends PagerAdapter {
         imageViewDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final BasicImageDownloader downloader = new BasicImageDownloader(new OnImageLoaderListener() {
                     @Override
                     public void onError(ImageError error) {
@@ -107,6 +108,7 @@ public class CastImageAdapter extends PagerAdapter {
         container.addView(view);
 
         return view;
+
     }
 
     @Override

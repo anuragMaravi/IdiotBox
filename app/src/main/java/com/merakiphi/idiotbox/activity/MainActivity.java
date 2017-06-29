@@ -1,21 +1,29 @@
 package com.merakiphi.idiotbox.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -29,10 +37,12 @@ import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-        private Toolbar toolbar;
+    private static final int REQUEST_PERMISSIONS = 1;
+    private Toolbar toolbar;
     private TextView toolbar_title;
     private AdView mAdView;
 
@@ -48,43 +58,43 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //Check for the update
-//        String version = null;
-//        try {
-//            PackageManager manager = getPackageManager();
-//            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-//            version = String.valueOf(info.versionName);
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        VersionChecker versionChecker = new VersionChecker();
-//        try {
-//            String latestVersion = versionChecker.execute().get();
-//            if(!latestVersion.equals(version)) {
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-//                alertDialog.setCancelable(false);
-//                alertDialog.setTitle("Update Required");
-//                alertDialog.setMessage("A new update is available for Idiot Box. Please update the app to continue.\n\nNew Version: " + latestVersion);
-//
-//                alertDialog.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        final String appPackageName = getPackageName();
-//                        try {
-//                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.kkings.cinematics" + appPackageName)));
-//                        } catch (android.content.ActivityNotFoundException anfe) {
-//                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-//                        }
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                alertDialog.setNegativeButton("NOT NOW", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                    }
-//                });
-//                alertDialog.show();
-//            } else {
+        String version = null;
+        try {
+            PackageManager manager = getPackageManager();
+            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+            version = String.valueOf(info.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        VersionChecker versionChecker = new VersionChecker();
+        try {
+            String latestVersion = versionChecker.execute().get();
+            if(!latestVersion.equals(version)) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                alertDialog.setCancelable(false);
+                alertDialog.setTitle("Update Required");
+                alertDialog.setMessage("A new update is available for Idiot Box. Please update the app to continue.\n\nNew Version: " + latestVersion);
+
+                alertDialog.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String appPackageName = getPackageName();
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.kkings.cinematics" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                alertDialog.setNegativeButton("NOT NOW", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                alertDialog.show();
+            } else {
                 setContentView(R.layout.activity_main);
                 toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
@@ -111,11 +121,41 @@ public class MainActivity extends AppCompatActivity {
                 fragme = new MoviesFragment();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, fragme).commit();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+//        //Check for permissions
+//        if (ContextCompat.checkSelfPermission(MainActivity.this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) + ContextCompat
+//                .checkSelfPermission(MainActivity.this,
+//                        Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale
+//                    (MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+//                    ActivityCompat.shouldShowRequestPermissionRationale
+//                            (MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                Snackbar.make(findViewById(android.R.id.content),
+//                        "Please Grant Permissions",
+//                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+//                        new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                ActivityCompat.requestPermissions(MainActivity.this,
+//                                        new String[]{Manifest.permission
+//                                                .WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION},
+//                                        REQUEST_PERMISSIONS);
+//                            }
+//                        }).show();
+//            } else {
+//                ActivityCompat.requestPermissions(MainActivity.this,
+//                        new String[]{Manifest.permission
+//                                .WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION},
+//                        REQUEST_PERMISSIONS);
 //            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
 //        }
     }
 
@@ -240,6 +280,38 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return newVersion;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS: {
+                if ((grantResults.length > 0) && (grantResults[0] +
+                        grantResults[1]) == PackageManager.PERMISSION_GRANTED) {
+                    //Call whatever you want
+//                    myMethod();
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), "Enable Permissions from settings",
+                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    intent.setData(Uri.parse("package:" + getPackageName()));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                    startActivity(intent);
+                                }
+                            }).show();
+                }
+                return;
+            }
         }
     }
 }
