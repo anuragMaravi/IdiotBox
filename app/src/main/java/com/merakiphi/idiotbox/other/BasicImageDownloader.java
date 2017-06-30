@@ -213,8 +213,7 @@ public class BasicImageDownloader {
 
         if (imageFile.exists()) {
             if (!shouldOverwrite) {
-                listener.onBitmapSaveError(new ImageError("file already exists, " +
-                        "write operation cancelled").setErrorCode(ImageError.ERROR_FILE_EXISTS));
+                listener.onBitmapSaveError(new ImageError("Image already exists.").setErrorCode(ImageError.ERROR_FILE_EXISTS));
                 return;
             } else if (!imageFile.delete()) {
                 listener.onBitmapSaveError(new ImageError("could not delete existing file, " +
