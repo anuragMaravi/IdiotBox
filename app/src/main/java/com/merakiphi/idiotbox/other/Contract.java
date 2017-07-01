@@ -20,8 +20,8 @@ public class Contract {
     //Image Base Url
     public final static String API_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     //Poster Image Sizes
-    public final static String apiImageSizeOriginal = "original";
-    public final static String apiImageSizeXXXL = "w780";
+    public final static String API_IMAGE_SIZE_ORIGINAL = "original";
+    public final static String API_IMAGE_SIZE_XXXL = "w780";
     public final static String API_IMAGE_SIZE_XXL = "w500";
     public final static String apiImageSizeXL = "w342";
     public final static String API_IMAGE_SIZE_L = "w185";

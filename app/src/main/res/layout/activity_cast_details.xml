@@ -50,9 +50,9 @@
                         android:orientation="horizontal"
                         android:layout_marginLeft="@dimen/activity_vertical_margin">
                 <TextView
-                    android:id="@+id/textViewMovieOrTvShow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                    android:id="@+id/textViewCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Movie/TvShow"
                     android:fontFamily="sans-serif-smallcaps"
                     android:textColor="@color/colorAccent"
@@ -98,7 +98,7 @@
             />
 
                     <com.merakiphi.idiotbox.other.CustomTextView
-                        android:id="@+id/textViewCountry"
+                        android:id="@+id/textViewMovieOrTvShow"
                         android:text="Country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

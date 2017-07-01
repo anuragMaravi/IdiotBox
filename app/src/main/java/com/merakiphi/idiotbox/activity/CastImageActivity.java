@@ -31,8 +31,9 @@ import static com.merakiphi.idiotbox.other.Contract.API_URL;
 
 public class CastImageActivity extends AppCompatActivity {
     private static String TAG = CastImageActivity.class.getSimpleName();
-    private List<Movie> castingList= new ArrayList<>();
+    private List<Movie> castingList;
     private ViewPager viewPager;
+    private CastImageAdapter adapter;
 
 
     @Override
@@ -53,6 +54,7 @@ public class CastImageActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            castingList = new ArrayList<>();
                             parentObject= new JSONObject(response);
                             JSONArray parentArray = parentObject.getJSONArray("profiles");
                             for(int i=0;i<parentArray.length();i++){
@@ -66,9 +68,9 @@ public class CastImageActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        CastImageAdapter adapter = new CastImageAdapter(getApplicationContext(), castingList);
+                        adapter = new CastImageAdapter(getApplicationContext(), castingList);
                         viewPager.setAdapter(adapter);
-                        viewPager.setCurrentItem(getIntent().getIntExtra("position", 0));
+//                        viewPager.setCurrentItem(getIntent().getIntExtra("position", 0));
 
                     }
                 }, new Response.ErrorListener() {

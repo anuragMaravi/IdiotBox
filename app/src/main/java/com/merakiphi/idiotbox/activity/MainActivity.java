@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
         VersionChecker versionChecker = new VersionChecker();
         try {
             String latestVersion = versionChecker.execute().get();

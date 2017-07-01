@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -58,17 +58,15 @@ public class CastImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
         View view = this.layoutInflater.inflate(R.layout.pager_list_items, container, false);
-        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.getIndeterminateDrawable().setColorFilter(container.getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
         ImageView imageView = (ImageView)view.findViewById(R.id.large_image);
         ImageView imageViewDownload = (ImageView)view.findViewById(R.id.imageViewDownload);
         ImageView imageViewShare = (ImageView)view.findViewById(R.id.imageViewShare);
         ImageView imageViewInfo = (ImageView)view.findViewById(R.id.imageViewInfo);
+        TextView textViewIndex = (TextView) view.findViewById(R.id.textViewIndex);
         final Movie movie = movieList.get(position);
         final String imageUrl = API_IMAGE_BASE_URL  + API_IMAGE_SIZE_XXL + "/" + movie.getCastingProfilePath();
         Glide.with(context).load(imageUrl).into(imageView);
-
+        textViewIndex.setText(String.valueOf(position + 1) + " of " + movieList.size());
         //Button to download image
         imageViewDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +107,6 @@ public class CastImageAdapter extends PagerAdapter {
                 Toast.makeText(context, "Image Info", Toast.LENGTH_SHORT).show();
             }
         });
-        progressBar.setVisibility(View.GONE);
         container.addView(view);
 
         return view;

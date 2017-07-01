@@ -166,15 +166,22 @@ public class CastDetailsActivity extends AppCompatActivity {
                             try {
                                 parentObject = new JSONObject(response);
                                 Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("profile_path")).into((ImageView) findViewById(R.id.imageViewPoster));
+                                JSONArray jsonArray = parentObject.getJSONArray("also_known_as");
+                                if (jsonArray.length() == 0) {
+                                    textViewMovieOrTvShow.setVisibility(View.GONE);
+                                } else {
+                                    String names = "Other Names: ";
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        names = names + "\n" + jsonArray.getString(i);
+                                    }
+                                    textViewMovieOrTvShow.setVisibility(View.VISIBLE);
+                                    textViewMovieOrTvShow.setText(names);
+                                }
+
                                 textViewOverview.setText(parentObject.getString("biography"));
                                 textViewTitle.setText(parentObject.getString("name"));
                                 textViewCountry.setText("Born: " + parentObject.getString("place_of_birth"));
                                 textViewDirector.setText("Birthday: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("birthday")));
-                                if (parentObject.getInt("gender") == 1) {
-                                    textViewMovieOrTvShow.setText("Female");
-                                } else {
-                                    textViewMovieOrTvShow.setText("Male");
-                                }
 
 
                                 //External IDs
