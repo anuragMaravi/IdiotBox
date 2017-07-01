@@ -61,7 +61,6 @@ public class CastImageAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)view.findViewById(R.id.large_image);
         ImageView imageViewDownload = (ImageView)view.findViewById(R.id.imageViewDownload);
         ImageView imageViewShare = (ImageView)view.findViewById(R.id.imageViewShare);
-        ImageView imageViewInfo = (ImageView)view.findViewById(R.id.imageViewInfo);
         TextView textViewIndex = (TextView) view.findViewById(R.id.textViewIndex);
         final Movie movie = movieList.get(position);
         final String imageUrl = API_IMAGE_BASE_URL  + API_IMAGE_SIZE_XXL + "/" + movie.getCastingProfilePath();
@@ -100,13 +99,6 @@ public class CastImageAdapter extends PagerAdapter {
             }
         });
 
-        //Button to show image info
-        imageViewInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Image Info", Toast.LENGTH_SHORT).show();
-            }
-        });
         container.addView(view);
 
         return view;

@@ -43,12 +43,6 @@
             android:layout_weight="1"
             android:src="@drawable/ic_share_white_24dp" />
 
-        <ImageView
-            android:id="@+id/imageViewInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_info_outline_white_24dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -15,31 +15,47 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/view" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cast Name"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textSize="24sp"
-        android:textColor="#fff"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:id="@+id/textViewMovieName"
-        android:layout_above="@+id/textViewCastingAs"/>
-    <TextView
-        android:id="@+id/textViewCastingAs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="as"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textSize="12sp"
-        android:textColor="@color/colorAccent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        />
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cast Name"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="22sp"
+            android:textColor="#fff"
+            android:id="@+id/textViewMovieName"
+            android:layout_above="@+id/textViewCastingAs"/>
+
+        <TextView
+            android:id="@+id/textViewCastingAs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="as"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="12sp"
+            android:textColor="@color/colorAccent"
+            />
+
+        <TextView
+            android:id="@+id/textViewYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textViewCastingAs"
+            android:layout_below="@+id/textViewMovieName"
+            android:text="2017"
+            android:textSize="10sp"
+            android:textColor="#9E9E9E"/>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +40,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_CASTING;
@@ -320,6 +323,10 @@ public class CastDetailsActivity extends AppCompatActivity {
                                     cast.setCastMovieCharacter(finalObject.getString("character"));
                                     cast.setCastMovieTitle(finalObject.getString("original_title"));
                                     cast.setCastMovieId(finalObject.getString("id"));
+                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                    Date date = format.parse(finalObject.getString("release_date"));
+                                    String year = (String) DateFormat.format("yyyy", date);
+                                    cast.setCastMovieYear(year);
                                     cast.setCastMoviePosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                     castingListMovies.add(cast);
                                 }

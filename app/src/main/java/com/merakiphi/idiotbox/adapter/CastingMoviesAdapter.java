@@ -38,6 +38,7 @@ public class CastingMoviesAdapter extends RecyclerView.Adapter<CastingMoviesAdap
         Glide.with(mContext).load(cast.getCastMoviePosterPath()).into(holder.imageViewCasting);
         holder.textViewCastingAs.setText(cast.getCastMovieCharacter());
         holder.textViewMovieName.setText(cast.getCastMovieTitle());
+        holder.textViewYear.setText(cast.getCastMovieYear());
         holder.imageViewCasting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,12 +62,13 @@ public class CastingMoviesAdapter extends RecyclerView.Adapter<CastingMoviesAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageViewCasting;
-        TextView textViewCastingAs, textViewMovieName;
+        TextView textViewCastingAs, textViewMovieName, textViewYear;
         public MyViewHolder(View view) {
             super(view);
             imageViewCasting = (ImageView) view.findViewById(R.id.imageViewCasting);
             textViewCastingAs = (TextView) view.findViewById(R.id.textViewCastingAs);
             textViewMovieName = (TextView) view.findViewById(R.id.textViewMovieName);
+            textViewYear = (TextView) view.findViewById(R.id.textViewYear);
         }
     }
 }

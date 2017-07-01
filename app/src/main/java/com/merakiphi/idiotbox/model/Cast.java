@@ -24,6 +24,7 @@ public class Cast {
     private String castMovieCharacter,
     castMovieId,
     castMovieTitle,
+    castMovieYear,
     castMoviePosterPath;
 
     //Cast Tv Show
@@ -152,6 +153,14 @@ public class Cast {
 
     public void setCastMovieTitle(String castMovieTitle) {
         this.castMovieTitle = castMovieTitle;
+    }
+
+    public String getCastMovieYear() {
+        return castMovieYear;
+    }
+
+    public void setCastMovieYear(String castMovieYear) {
+        this.castMovieYear = castMovieYear;
     }
 
     public String getCastMoviePosterPath() {
