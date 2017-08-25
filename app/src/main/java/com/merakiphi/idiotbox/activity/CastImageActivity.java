@@ -3,7 +3,6 @@ package com.merakiphi.idiotbox.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -31,55 +30,50 @@ import static com.merakiphi.idiotbox.other.Contract.API_URL;
 
 public class CastImageActivity extends AppCompatActivity {
     private static String TAG = CastImageActivity.class.getSimpleName();
-    private List<Movie> castingList;
+    private List<Movie> castingList= new ArrayList<>();
     private ViewPager viewPager;
-    private CastImageAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
-        setContentView(R.layout.activity_cast_image);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setContentView(R.layout.activity_cast_image);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-        //Request Cast Images
-        String castingImagesRequest = API_URL + API_CASTING + "/" + getIntent().getStringExtra("profileId") + "/images?api_key=" + API_KEY;
-            Log.i(TAG, "Cast Images:" + castingImagesRequest);
-        StringRequest stringRequestCastingImages = new StringRequest(Request.Method.GET, castingImagesRequest,
-                new Response.Listener<String>() {
-                    JSONObject parentObject;
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            castingList = new ArrayList<>();
-                            parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("profiles");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                Movie movieModel = new Movie();
-                                movieModel.setCastingId(parentObject.getString("id"));
-                                movieModel.setCastingProfilePath(finalObject.getString("file_path"));
-                                castingList.add(movieModel);
+            viewPager = (ViewPager) findViewById(R.id.view_pager);
+            //Request Cast Images
+            String castingImagesRequest = API_URL + API_CASTING + "/" + getIntent().getStringExtra("profileId") + "/images?api_key=" + API_KEY;
+            StringRequest stringRequestCastingImages = new StringRequest(Request.Method.GET, castingImagesRequest,
+                    new Response.Listener<String>() {
+                        JSONObject parentObject;
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                parentObject= new JSONObject(response);
+                                JSONArray parentArray = parentObject.getJSONArray("profiles");
+                                for(int i=0;i<parentArray.length();i++){
+                                    JSONObject finalObject = parentArray.getJSONObject(i);
+                                    Movie movieModel = new Movie();
+                                    movieModel.setCastingProfilePath(finalObject.getString("file_path"));
+                                    movieModel.setCastingId(getIntent().getStringExtra("profileId"));
+                                    castingList.add(movieModel);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                            CastImageAdapter adapter = new CastImageAdapter(getApplicationContext(), castingList);
+                            viewPager.setAdapter(adapter);
+                            viewPager.setCurrentItem(getIntent().getIntExtra("position", 0));
+
                         }
-
-                        adapter = new CastImageAdapter(getApplicationContext(), castingList);
-                        viewPager.setAdapter(adapter);
-//                        viewPager.setCurrentItem(getIntent().getIntExtra("position", 0));
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occurred.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCastingImages);
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                }
+            });
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCastingImages);
 
         } else {
             setNoInternetView();
@@ -112,6 +106,7 @@ public class CastImageActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

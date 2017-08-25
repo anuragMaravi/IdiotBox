@@ -43,7 +43,9 @@
         <item>France</item>
         <item>India</item>
         <item>Japan</item>
+        <item>Romania</item>
         <item>Russia</item>
+        <item>Turkey</item>
         <item>United Kingdom</item>
         <item>United States</item>
     </string-array>
@@ -55,23 +57,41 @@
         <item>FR</item>
         <item>IN</item>
         <item>JP</item>
+        <item>RO</item>
         <item>RU</item>
+        <item>TR</item>
         <item>GB</item>
         <item>US</item>
     </string-array>
-    <string name="pref_title_country_default_value">IN</string>
+    <string name="pref_title_country_default_value">US</string>
 
 
     <string name="pref_title_language">Select language</string>
     <string-array name="pref_list_language">
+        <item>Chinese - 中文, 汉语, 漢語</item>
         <item>English</item>
+        <item>French - français</item>
         <item>German - Deutsch</item>
+        <item>Indonesian - Bahasa Indonesia</item>
         <item>Japanese - 日本語 (にほんご)</item>
+        <item>Korean - 한국어</item>
+        <item>Portuguese - Português</item>
+        <item>Russian - Русский</item>
+        <item>Spanish - Español</item>
+        <item>Turkish - Türkçe</item>
     </string-array>
     <string-array name="pref_list_language_values">
+        <item>zh</item>
         <item>en</item>
+        <item>fr</item>
         <item>de</item>
+        <item>id</item>
         <item>ja</item>
+        <item>ko</item>
+        <item>pt</item>
+        <item>ru</item>
+        <item>es</item>
+        <item>tr</item>
     </string-array>
     <string name="pref_title_language_default_value">en</string>
 

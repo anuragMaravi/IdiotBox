@@ -105,7 +105,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String region = prefs.getString("country", "IN"); //Default: India
+        String region = prefs.getString("country", "US"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
 
         if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {

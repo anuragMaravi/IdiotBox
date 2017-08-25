@@ -71,8 +71,10 @@ public class TvShowFragmentLatest extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //Get the region from the settings and append to the request
+        String locale = getResources().getConfiguration().locale.getCountry();
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String region = prefs.getString("country", "IN"); //Default: India
+        String region = prefs.getString("country", locale); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
         final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
 

@@ -7,7 +7,7 @@ android {
         applicationId "com.merakiphi.idiotbox"
         minSdkVersion 20
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

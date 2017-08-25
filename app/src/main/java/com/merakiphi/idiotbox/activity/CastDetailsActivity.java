@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,9 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_CASTING;
@@ -105,7 +102,7 @@ public class CastDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String region = prefs.getString("country", "IN"); //Default: India
+        String region = prefs.getString("country", "US"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
         final String poster_quality = prefs.getString("poster_size", "w342/"); //Default: Medium
 
@@ -169,22 +166,15 @@ public class CastDetailsActivity extends AppCompatActivity {
                             try {
                                 parentObject = new JSONObject(response);
                                 Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("profile_path")).into((ImageView) findViewById(R.id.imageViewPoster));
-                                JSONArray jsonArray = parentObject.getJSONArray("also_known_as");
-                                if (jsonArray.length() == 0) {
-                                    textViewMovieOrTvShow.setVisibility(View.GONE);
-                                } else {
-                                    String names = "Other Names: ";
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        names = names + "\n" + jsonArray.getString(i);
-                                    }
-                                    textViewMovieOrTvShow.setVisibility(View.VISIBLE);
-                                    textViewMovieOrTvShow.setText(names);
-                                }
-
                                 textViewOverview.setText(parentObject.getString("biography"));
                                 textViewTitle.setText(parentObject.getString("name"));
                                 textViewCountry.setText("Born: " + parentObject.getString("place_of_birth"));
                                 textViewDirector.setText("Birthday: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("birthday")));
+                                if (parentObject.getInt("gender") == 1) {
+                                    textViewMovieOrTvShow.setText("Female");
+                                } else {
+                                    textViewMovieOrTvShow.setText("Male");
+                                }
 
 
                                 //External IDs
@@ -323,10 +313,6 @@ public class CastDetailsActivity extends AppCompatActivity {
                                     cast.setCastMovieCharacter(finalObject.getString("character"));
                                     cast.setCastMovieTitle(finalObject.getString("original_title"));
                                     cast.setCastMovieId(finalObject.getString("id"));
-                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                                    Date date = format.parse(finalObject.getString("release_date"));
-                                    String year = (String) DateFormat.format("yyyy", date);
-                                    cast.setCastMovieYear(year);
                                     cast.setCastMoviePosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
                                     castingListMovies.add(cast);
                                 }

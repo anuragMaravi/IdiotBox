@@ -72,7 +72,7 @@ public class GenreListActivity extends AppCompatActivity {
             progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
             prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String region = prefs.getString("country", "IN"); //Default: India
+        String region = prefs.getString("country", "US"); //Default: India
         String language = prefs.getString("language", "en"); //Default: English
 
         /**
