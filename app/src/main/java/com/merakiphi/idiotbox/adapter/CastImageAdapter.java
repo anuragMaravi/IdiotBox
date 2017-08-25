@@ -115,7 +115,7 @@ public class CastImageAdapter extends PagerAdapter {
             @Override
             public void onError(ImageError error) {
                 Toast.makeText(context, "Error code " + error.getErrorCode() + ": " +
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                        error.getMessage() +  ". This app requires storage permission. Give permission to download and share images.", Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
 
