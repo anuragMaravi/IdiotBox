@@ -134,6 +134,7 @@ public class CastImageAdapter extends PagerAdapter {
                     @Override
                     public void onBitmapSaved() {
                         Toast.makeText(context, "Image saved as: " + myImageFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + myImageFile.getAbsolutePath())));
                     }
 
                     @Override
