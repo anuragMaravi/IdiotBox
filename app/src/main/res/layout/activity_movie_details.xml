@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,13 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -222,6 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -247,7 +249,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewTrailers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                ads:adSize="SMART_BANNER"/>
+
+
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -274,6 +279,17 @@
                 android:id="@+id/recyclerViewSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="ca-app-pub-3259009684379327/8932552299">
+            </com.google.android.gms.ads.AdView>
+
         </LinearLayout>
 
     </ScrollView>

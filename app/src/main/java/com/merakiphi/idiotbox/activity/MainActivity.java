@@ -28,9 +28,6 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.fragment.MoviesFragment;
 import com.merakiphi.idiotbox.fragment.TvShowsFragment;
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView toolbar_title;
-    private AdView mAdView;
+
 
 
     BottomNavigationView navigation;
@@ -134,20 +131,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        //Initialising AdMob
-        MobileAds.initialize(this, "ca-app-pub-3259009684379327~5979085895");
-
-        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
-        // values/strings.xml.
-        mAdView = (AdView) findViewById(R.id.ad_view);
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-
-        // Start loading the ad in the background.
-        mAdView.loadAd(adRequest);
-
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -231,33 +214,6 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);}
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /** Called when leaving the activity */
-    @Override
-    public void onPause() {
-        if (mAdView != null) {
-            mAdView.pause();
-        }
-        super.onPause();
-    }
-
-    /** Called when returning to the activity */
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mAdView != null) {
-            mAdView.resume();
-        }
-    }
-
-    /** Called before the activity is destroyed */
-    @Override
-    public void onDestroy() {
-        if (mAdView != null) {
-            mAdView.destroy();
-        }
-        super.onDestroy();
     }
 
 
