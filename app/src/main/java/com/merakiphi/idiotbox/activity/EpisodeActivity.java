@@ -150,7 +150,7 @@ public class EpisodeActivity extends AppCompatActivity {
          * Ads
          */
         //Initialising AdMob
-        MobileAds.initialize(this, "ca-app-pub-3259009684379327/8932552299");
+        MobileAds.initialize(this, "ca-app-pub-3259009684379327~5979085895");
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
         // values/strings.xml.
