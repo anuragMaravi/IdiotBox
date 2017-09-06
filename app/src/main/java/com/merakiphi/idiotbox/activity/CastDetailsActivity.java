@@ -24,6 +24,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.CastingImagesAdapter;
 import com.merakiphi.idiotbox.adapter.CastingMoviesAdapter;
@@ -96,6 +99,9 @@ public class CastDetailsActivity extends AppCompatActivity {
 
     //To show or hide title box
     boolean isShown = true;
+
+    //Ads
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -361,6 +367,19 @@ public class CastDetailsActivity extends AppCompatActivity {
             });
             // Add the request to the RequestQueue.
             VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCastDetails);
+
+            /**
+             * Ads
+             */
+            //Initialising AdMob
+            MobileAds.initialize(this, "ca-app-pub-3259009684379327/8932552299");
+
+            // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+            // values/strings.xml.
+            mAdView = (AdView) findViewById(R.id.adView);
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
         } else {
             setNoInternetView();
         }
@@ -392,5 +411,33 @@ public class CastDetailsActivity extends AppCompatActivity {
                 onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Ads
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }
