@@ -38,6 +38,7 @@
     <string-array name="pref_example_list_titles">
         <item>None</item>
         <item>Australia</item>
+        <item>Canada</item>
         <item>China</item>
         <item>Germany</item>
         <item>France</item>
@@ -52,6 +53,7 @@
     <string-array name="pref_example_list_values">
         <item></item>
         <item>AU</item>
+        <item>CA</item>
         <item>CN</item>
         <item>DE</item>
         <item>FR</item>
