@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences permissionStatus;
     private boolean sentToSettings = false;
 
+    //New Update: checking git push
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
