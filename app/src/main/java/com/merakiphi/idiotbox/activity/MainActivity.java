@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.fragment.MoviesFragment;
 import com.merakiphi.idiotbox.fragment.ProfileFragment;
+import com.merakiphi.idiotbox.fragment.WishlistFragment;
 import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 import com.merakiphi.idiotbox.other.CheckInternet;
 
@@ -180,6 +181,23 @@ public class MainActivity extends AppCompatActivity {
                             Color.WHITE
                     }));
                     break;
+
+                case R.id.navigation_wishlist:
+                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
+                    toolbar_title.setText("WISHLISTz");
+                    toolbar_title.setTextColor(getResources().getColor(R.color.tmdbColor));
+                    fragment = new WishlistFragment();
+
+                    navigation.getMenu().findItem(R.id.navigation_groups).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                    navigation.setItemTextColor(new ColorStateList(new int[][] {
+                            new int[] {android.R.attr.state_checked}, // unchecked
+                            new int[] {-android.R.attr.state_checked} // unchecked
+                    }, new int[] {
+                            getResources().getColor(R.color.tmdbColor),
+                            Color.WHITE
+                    }));
+                    break;
+
                 case R.id.navigation_profile:
                     toolbar_title =(TextView) findViewById(R.id.toolbar_title);
                     toolbar_title.setText("PROFILE");

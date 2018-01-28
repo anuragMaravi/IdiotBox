@@ -97,5 +97,8 @@ public class Contract {
     //Request Token
     public final static String REQUEST_TOKEN = "https://api.themoviedb.org/3/authentication/token/new?api_key=" + API_KEY;
 
+    //Account
+    public final static String ACCOUNT_DETAILS = "https://api.themoviedb.org/3/account?api_key=" + API_KEY;
+
 
 }
