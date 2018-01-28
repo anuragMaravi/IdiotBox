@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.fragment.MoviesFragment;
+import com.merakiphi.idiotbox.fragment.ProfileFragment;
 import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 import com.merakiphi.idiotbox.other.CheckInternet;
 
@@ -53,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION};
     private SharedPreferences permissionStatus;
     private boolean sentToSettings = false;
-
-    //New Update: checking git push
-
 
 
 
@@ -179,6 +177,21 @@ public class MainActivity extends AppCompatActivity {
                             new int[] {-android.R.attr.state_checked} // unchecked
                     }, new int[] {
                             getResources().getColor(R.color.tv_show_accent),
+                            Color.WHITE
+                    }));
+                    break;
+                case R.id.navigation_profile:
+                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
+                    toolbar_title.setText("PROFILE");
+                    toolbar_title.setTextColor(getResources().getColor(R.color.tmdbColor));
+                    fragment = new ProfileFragment();
+
+                    navigation.getMenu().findItem(R.id.navigation_groups).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                    navigation.setItemTextColor(new ColorStateList(new int[][] {
+                            new int[] {android.R.attr.state_checked}, // unchecked
+                            new int[] {-android.R.attr.state_checked} // unchecked
+                    }, new int[] {
+                            getResources().getColor(R.color.tmdbColor),
                             Color.WHITE
                     }));
                     break;

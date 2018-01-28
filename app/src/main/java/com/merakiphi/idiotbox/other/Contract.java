@@ -94,7 +94,8 @@ public class Contract {
     public final static String TV_AIRING_TODAY_REQUEST = API_URL + API_TV + "/airing_today?api_key=" + API_KEY;
     public final static String TV_TOP_RATED_REQUEST = API_URL + API_TV + "/top_rated?api_key=" + API_KEY;
 
-
+    //Request Token
+    public final static String REQUEST_TOKEN = "https://api.themoviedb.org/3/authentication/token/new?api_key=" + API_KEY;
 
 
 }

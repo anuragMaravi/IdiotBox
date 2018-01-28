@@ -13,9 +13,9 @@
         android:icon="@drawable/ic_tv_white_36dp"
         android:title="Tv Show" />
 
-    <!--<item-->
-        <!--android:id="@+id/navigation_profile"-->
-        <!--android:icon="@drawable/ic_face_white_36dp"-->
-        <!--android:title="People" />-->
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_face_white_36dp"
+        android:title="Profile" />
 
 </menu>

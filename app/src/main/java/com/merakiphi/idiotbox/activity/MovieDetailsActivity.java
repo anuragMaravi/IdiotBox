@@ -1,14 +1,17 @@
 package com.merakiphi.idiotbox.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -333,13 +336,32 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_favorite, menu);
+        return true;
+    }
 
+    boolean movieSelected = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 onBackPressed();
+            case R.id.action_favorite:
+
+                if(!movieSelected) {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp));
+                    item.getIcon().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+                    item.setTitle("Unfavorite");
+                    movieSelected = true;
+                } else {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp));
+                    movieSelected = false;
+                }
+
+
         }
         return super.onOptionsItemSelected(item);
     }

@@ -174,8 +174,17 @@ public class CastDetailsActivity extends AppCompatActivity {
                                 Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("profile_path")).into((ImageView) findViewById(R.id.imageViewPoster));
                                 textViewOverview.setText(parentObject.getString("biography"));
                                 textViewTitle.setText(parentObject.getString("name"));
-                                textViewCountry.setText("Born: " + parentObject.getString("place_of_birth"));
-                                textViewDirector.setText("Birthday: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("birthday")));
+                                try {
+                                    textViewCountry.setText("Born: " + parentObject.getString("place_of_birth"));
+                                } catch (JSONException e) {
+                                    textViewCountry.setText("Born: NA");
+                                }
+
+                                try {
+                                    textViewDirector.setText("Birthday: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("birthday")));
+                                } catch (JSONException e) {
+                                    textViewDirector.setText("Birthday: NA");
+                                }
                                 if (parentObject.getInt("gender") == 1) {
                                     textViewMovieOrTvShow.setText("Female");
                                 } else {
@@ -316,7 +325,11 @@ public class CastDetailsActivity extends AppCompatActivity {
                                 for (int i = moviesArray.length() - 1; i >= 0; i--) {
                                     JSONObject finalObject = moviesArray.getJSONObject(i);
                                     Cast cast = new Cast();
-                                    cast.setCastMovieCharacter(finalObject.getString("character"));
+                                    try {
+                                        cast.setCastMovieCharacter(finalObject.getString("character"));
+                                    } catch (JSONException e) {
+                                        cast.setCastMovieCharacter("NA");
+                                    }
                                     cast.setCastMovieTitle(finalObject.getString("original_title"));
                                     cast.setCastMovieId(finalObject.getString("id"));
                                     cast.setCastMoviePosterPath(API_IMAGE_BASE_URL + poster_quality + finalObject.getString("poster_path"));
@@ -351,6 +364,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                                 container.setVisibility(View.VISIBLE);
                                 progressBar.setVisibility(View.GONE);
                             } catch (JSONException e) {
+                                Log.i(TAG, "Error: " + e.getMessage());
                                 e.printStackTrace();
                             } catch (ParseException e) {
                                 e.printStackTrace();
