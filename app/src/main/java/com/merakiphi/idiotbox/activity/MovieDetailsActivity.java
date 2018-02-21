@@ -1,5 +1,6 @@
 package com.merakiphi.idiotbox.activity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
@@ -47,7 +49,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
@@ -69,6 +73,8 @@ import static com.merakiphi.idiotbox.other.Contract.VIDEOS;
 public class MovieDetailsActivity  extends AppCompatActivity {
 
     public static String TAG;
+    private static final String PREFS_NAME = "LOGIN";
+
     String movieId;
     private String movieDetailsRequest;
     private TextView textViewDirector,
@@ -113,6 +119,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
     boolean isShown = true;
 
     private SharedPreferences prefs;
+    private static SharedPreferences sharedPreferences;
+
 
     //Ads
     private AdView mAdView;
@@ -351,15 +359,88 @@ public class MovieDetailsActivity  extends AppCompatActivity {
                 onBackPressed();
             case R.id.action_favorite:
 
+                //To mark the movie as favorite
                 if(!movieSelected) {
                     item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp));
                     item.getIcon().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                     item.setTitle("Unfavorite");
+                    Toast.makeText(this, "marked", Toast.LENGTH_SHORT).show();
                     movieSelected = true;
-                } else {
-                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp));
-                    movieSelected = false;
+
+                    // Inflate the layout for this fragment
+                    sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                    String accountId = sharedPreferences.getString("ACCOUNT_ID", null);
+                    String sessionId = sharedPreferences.getString("SESSION_ID", null);
+
+                    try {
+                        JSONObject jsonBody = new JSONObject("{\"media_type\":\"movie\", \"media_id\":" + movieId + ", \"favorite\":false}");
+                        JsonObjectRequest stringRequest = new JsonObjectRequest("https://api.themoviedb.org/3/account/"+ accountId +"/favorite?api_key=" + API_KEY + "&session_id=" + sessionId, jsonBody,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("Volley", "onResponse(Maek Favorite): " + response);
+                                        JSONObject parentObject = response;
+
+
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "Please check your internet connection.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        // Add the request to the RequestQueue.
+                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+                //To unmark the movie as favorite
+                else {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp));
+                    item.setTitle("Favorite");
+                    Toast.makeText(this, "unmarked", Toast.LENGTH_SHORT).show();
+
+                    movieSelected = false;
+
+                    // Inflate the layout for this fragment
+                    sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                    String accountId = sharedPreferences.getString("ACCOUNT_ID", null);
+                    String sessionId = sharedPreferences.getString("SESSION_ID", null);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.themoviedb.org/3/account/"+ accountId +"/favorite?api_key=" + API_KEY + "&session_id=" + sessionId,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        Log.i("Volley", "onResponse(Maek Favorite): " + response);
+                                        JSONObject parentObject = new JSONObject(response);
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Please check your internet connection.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    {
+                        @Override
+                        protected Map<String,String> getParams(){
+                            Map<String,String> params = new HashMap<String, String>();
+                            params.put("media_type","movie");
+                            params.put("media_id",movieId);
+                            params.put("favorite", "false");
+                            return params;
+                        }};
+                    // Add the request to the RequestQueue.
+                    VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                }
+
+
 
 
         }
