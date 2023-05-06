@@ -1,7 +1,7 @@
 package com.merakiphi.idiotbox.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.merakiphi.idiotbox.R;

@@ -11,15 +11,16 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +33,6 @@ import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.fragment.MoviesFragment;
 import com.merakiphi.idiotbox.fragment.ProfileFragment;
 import com.merakiphi.idiotbox.fragment.WishlistFragment;
-import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 import com.merakiphi.idiotbox.other.CheckInternet;
 
 public class MainActivity extends AppCompatActivity {
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getSupportFragmentManager();
         fragme = new MoviesFragment();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        final androidx.fragment.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragme).commit();
         } else {
             setNoInternetView();
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     toolbar_title =(TextView) findViewById(R.id.toolbar_title);
                     toolbar_title.setText("TV SHOWS");
                     toolbar_title.setTextColor(getResources().getColor(R.color.tv_show_accent));
-                    fragment = new TvShowsFragment();
+                    fragment = new MoviesFragment();
                     navigation.getMenu().findItem(R.id.navigation_groups).getIcon().setColorFilter(getResources().getColor(R.color.tv_show_accent), PorterDuff.Mode.SRC_IN);
                     navigation.setItemTextColor(new ColorStateList(new int[][] {
                             new int[] {android.R.attr.state_checked}, // unchecked

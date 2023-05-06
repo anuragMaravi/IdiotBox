@@ -3,11 +3,12 @@ package com.merakiphi.idiotbox.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class TvShowsFragment extends Fragment {
     }
 
     private TabLayout tabLayoutTvShows;
-    private ViewPager viewPagerTvShows;
+    private androidx.viewpager.widget.ViewPager viewPagerTvShows;
     private View rootView;
 
     @Override
@@ -80,7 +81,7 @@ public class TvShowsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_tvshows, container, false);
-        viewPagerTvShows = (ViewPager) rootView.findViewById(R.id.viewpagerTvShows);
+        viewPagerTvShows = (androidx.viewpager.widget.ViewPager) rootView.findViewById(R.id.viewpagerTvShows);
         setupViewPager(viewPagerTvShows);
 
         tabLayoutTvShows = (TabLayout) rootView.findViewById(R.id.tabsTvShows);
@@ -109,7 +110,7 @@ public class TvShowsFragment extends Fragment {
         tabLayoutTvShows.getTabAt(3).setCustomView(tabFour);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(androidx.viewpager.widget.ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFrag(new TvShowFragmentPopular(), "POPULAR");
         adapter.addFrag(new TvShowFragmentAiringToday(), "AIRING TODAY");
